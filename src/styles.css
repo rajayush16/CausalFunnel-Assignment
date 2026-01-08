@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #f6f4ef;
-  --card: #ffffff;
-  --text: #1b1b1f;
-  --muted: #5b5b67;
-  --primary: #f06c3c;
-  --primary-dark: #d0582b;
-  --accent: #0f766e;
-  --border: rgba(27, 27, 31, 0.12);
-  --shadow: 0 18px 40px rgba(15, 12, 10, 0.08);
+  --bg: #f4f1ea;
+  --card: rgba(255, 255, 255, 0.85);
+  --text: #14131a;
+  --muted: #5d5b66;
+  --primary: #ff6f3d;
+  --primary-dark: #e85b2c;
+  --accent: #0e7c7b;
+  --border: rgba(20, 19, 26, 0.12);
+  --shadow: 0 26px 60px rgba(18, 16, 26, 0.12);
+  --glass: rgba(255, 255, 255, 0.6);
 }
 
 * {
@@ -20,12 +21,37 @@ body {
   margin: 0;
   font-family: 'Manrope', sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top, #fff8f1, #f0efe9 55%, #efe8e1 100%);
+  background: radial-gradient(circle at 10% 10%, #fff5ec, #f2ede4 50%, #ebe4dc 100%);
   min-height: 100vh;
 }
 
 #root {
   min-height: 100vh;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(0px);
+  opacity: 0.22;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::before {
+  top: -120px;
+  right: -120px;
+  background: radial-gradient(circle, #ffb78e, transparent 60%);
+}
+
+body::after {
+  bottom: -180px;
+  left: -160px;
+  background: radial-gradient(circle, #9de6d6, transparent 60%);
 }
 
 h1, h2, h3 {
@@ -39,6 +65,8 @@ p {
 
 .page {
   padding: 40px 20px 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .card {
@@ -47,6 +75,7 @@ p {
   padding: 32px;
   box-shadow: var(--shadow);
   border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
 }
 
 .subtitle {
@@ -69,6 +98,7 @@ input[type='email'] {
   border: 1px solid var(--border);
   font-size: 1rem;
   outline: none;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 input[type='email']:focus {
@@ -83,6 +113,7 @@ button {
   font-weight: 600;
   cursor: pointer;
   font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 button:disabled {
@@ -93,10 +124,12 @@ button:disabled {
 .primary {
   background: var(--primary);
   color: #fff;
+  box-shadow: 0 12px 24px rgba(255, 111, 61, 0.28);
 }
 
 .primary:hover {
   background: var(--primary-dark);
+  transform: translateY(-1px);
 }
 
 .ghost {
@@ -169,7 +202,7 @@ button:disabled {
 }
 
 .question-card {
-  background: var(--card);
+  background: var(--glass);
   padding: 24px;
   border-radius: 18px;
   border: 1px solid var(--border);
@@ -195,7 +228,8 @@ button:disabled {
   gap: 10px;
   align-items: center;
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .option input {
@@ -206,6 +240,7 @@ button:disabled {
   border-color: var(--primary);
   transform: translateY(-1px);
   background: rgba(240, 108, 60, 0.08);
+  box-shadow: 0 10px 20px rgba(255, 111, 61, 0.18);
 }
 
 .nav-controls {
@@ -216,7 +251,7 @@ button:disabled {
 }
 
 .question-nav {
-  background: var(--card);
+  background: var(--glass);
   padding: 20px;
   border-radius: 18px;
   border: 1px solid var(--border);
@@ -236,6 +271,11 @@ button:disabled {
   background: transparent;
   padding: 8px 0;
   font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.question-pill:hover {
+  transform: translateY(-1px);
 }
 
 .question-pill.visited {
@@ -301,6 +341,7 @@ button:disabled {
   max-width: 420px;
   width: 100%;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 .report-page {
@@ -325,7 +366,7 @@ button:disabled {
   padding: 14px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  background: #fff9f2;
+  background: rgba(255, 249, 242, 0.85);
   display: grid;
   gap: 6px;
 }
@@ -340,7 +381,7 @@ button:disabled {
 }
 
 .report-item {
-  background: var(--card);
+  background: var(--glass);
   border-radius: 16px;
   padding: 20px;
   border: 1px solid var(--border);
