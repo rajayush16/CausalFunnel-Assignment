@@ -119,6 +119,7 @@ export default function QuizPage() {
   const handleSubmit = () => {
     if (hasSubmittedRef.current) return;
     hasSubmittedRef.current = true;
+    setShowConfirm(false);
     dispatch({ type: 'MARK_SUBMITTED', payload: Date.now() });
     navigate('/report', { replace: true });
   };
@@ -195,7 +196,7 @@ export default function QuizPage() {
       <ConfirmModal
         open={showConfirm}
         title="Submit quiz?"
-        description="You can’t change answers after submission."
+        description="You can't change answers after submission."
         onCancel={() => setShowConfirm(false)}
         onConfirm={handleSubmit}
       />

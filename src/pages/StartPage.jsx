@@ -22,6 +22,10 @@ export default function StartPage() {
       return;
     }
     setError('');
+    if (hasSavedQuiz && trimmed !== state.email) {
+      clearStorage();
+      dispatch({ type: 'RESET' });
+    }
     dispatch({ type: 'SET_EMAIL', payload: trimmed });
     navigate('/quiz');
   };
