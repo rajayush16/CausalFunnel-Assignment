@@ -142,12 +142,20 @@ button:disabled {
 .primary:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(255, 111, 61, 0.32);
 }
 
 .ghost {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
+}
+
+.ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 111, 61, 0.35);
+  box-shadow: 0 10px 18px rgba(255, 111, 61, 0.15);
+  transform: translateY(-1px);
 }
 
 .danger {
