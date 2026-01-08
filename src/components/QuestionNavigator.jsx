@@ -6,12 +6,25 @@ export default function QuestionNavigator({
   visited,
   attempted,
   onNavigate,
+  visibleIndexes,
+  filterActive,
+  onClearFilter,
 }) {
+  const indices = visibleIndexes || Array.from({ length: total }, (_, index) => index);
+
   return (
     <div className="question-nav">
       <h3>Questions</h3>
+      {filterActive && (
+        <div className="filter-row">
+          <span>Showing unanswered</span>
+          <button type="button" className="ghost" onClick={onClearFilter}>
+            Show all
+          </button>
+        </div>
+      )}
       <div className="question-grid">
-        {Array.from({ length: total }, (_, index) => {
+        {indices.map((index) => {
           const isCurrent = index === currentIndex;
           const isVisited = visited[index];
           const isAttempted = attempted[index];

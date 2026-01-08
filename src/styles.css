@@ -375,6 +375,21 @@ button:disabled {
   box-shadow: var(--shadow);
 }
 
+.filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  gap: 8px;
+}
+
+.filter-row .ghost {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
 .skeleton {
   border-radius: 12px;
   background: linear-gradient(90deg, rgba(15, 118, 110, 0.08), rgba(255, 106, 61, 0.12), rgba(15, 118, 110, 0.08));

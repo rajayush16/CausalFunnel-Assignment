@@ -14,6 +14,7 @@ export default function QuizPage() {
   const navigate = useNavigate();
   const { state, dispatch } = useQuiz();
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showUnansweredOnly, setShowUnansweredOnly] = useState(false);
   const hasSubmittedRef = useRef(false);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ export default function QuizPage() {
     }
   }, [state.currentIndex, state.questions.length, dispatch]);
 
+
   useEffect(() => {
     if (state.status !== 'ready') return;
     if (state.remainingTime <= 0) {
@@ -103,6 +105,19 @@ export default function QuizPage() {
     () => state.selectedAnswers.map((answer) => answer !== null),
     [state.selectedAnswers]
   );
+
+  const unansweredIndexes = useMemo(
+    () => state.selectedAnswers
+      .map((answer, index) => (answer === null ? index : null))
+      .filter((value) => value !== null),
+    [state.selectedAnswers]
+  );
+
+  useEffect(() => {
+    if (showUnansweredOnly && unansweredIndexes.length === 0) {
+      setShowUnansweredOnly(false);
+    }
+  }, [showUnansweredOnly, unansweredIndexes.length]);
 
   const attemptedCount = useMemo(
     () => state.selectedAnswers.filter((answer) => answer !== null).length,
@@ -144,6 +159,15 @@ export default function QuizPage() {
     setShowConfirm(false);
     dispatch({ type: 'MARK_SUBMITTED', payload: Date.now() });
     navigate('/report', { replace: true });
+  };
+
+  const handleReviewUnanswered = () => {
+    if (!unansweredIndexes.length) {
+      return;
+    }
+    setShowConfirm(false);
+    setShowUnansweredOnly(true);
+    dispatch({ type: 'SET_CURRENT_INDEX', payload: unansweredIndexes[0] });
   };
 
   if (state.status === 'loading') {
@@ -260,6 +284,9 @@ export default function QuizPage() {
           visited={state.visited}
           attempted={attempted}
           onNavigate={handleNavigate}
+          visibleIndexes={showUnansweredOnly ? unansweredIndexes : null}
+          filterActive={showUnansweredOnly}
+          onClearFilter={() => setShowUnansweredOnly(false)}
         />
       </div>
       <ConfirmModal
@@ -268,6 +295,11 @@ export default function QuizPage() {
         description="You can't change answers after submission."
         onCancel={() => setShowConfirm(false)}
         onConfirm={handleSubmit}
+        extraAction={
+          unansweredIndexes.length
+            ? { label: `Review unanswered (${unansweredIndexes.length})`, onClick: handleReviewUnanswered }
+            : null
+        }
       />
     </div>
   );
