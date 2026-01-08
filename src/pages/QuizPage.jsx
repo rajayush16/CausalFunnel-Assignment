@@ -33,10 +33,23 @@ export default function QuizPage() {
       const fetchQuestions = async () => {
         dispatch({ type: 'SET_STATUS', payload: 'loading' });
         try {
-          const response = await fetch(`https://opentdb.com/api.php?amount=${QUESTION_COUNT}`);
+          const response = await fetch(
+            `https://opentdb.com/api.php?amount=${QUESTION_COUNT}&timestamp=${Date.now()}`,
+            { cache: 'no-store' }
+          );
+          if (!response.ok) {
+            throw new Error(`Network error: ${response.status}`);
+          }
           const data = await response.json();
           if (data.response_code !== 0) {
-            throw new Error('Unable to load quiz questions.');
+            const code = data.response_code;
+            const messageMap = {
+              1: 'No results found for the quiz request.',
+              2: 'Invalid parameters sent to the quiz API.',
+              3: 'Session token not found by the quiz API.',
+              4: 'Session token has no remaining questions.',
+            };
+            throw new Error(messageMap[code] || 'Unable to load quiz questions.');
           }
           const questions = data.results.map((item, index) => {
             const decodedQuestion = decodeHtmlEntities(item.question);
@@ -138,7 +151,13 @@ export default function QuizPage() {
         <div className="card error-card">
           <h2>Something went wrong</h2>
           <p>{state.error}</p>
-          <button className="primary" onClick={() => dispatch({ type: 'SET_STATUS', payload: 'idle' })}>
+          <button
+            className="primary"
+            onClick={() => {
+              dispatch({ type: 'SET_ERROR', payload: null });
+              dispatch({ type: 'SET_STATUS', payload: 'idle' });
+            }}
+          >
             Retry
           </button>
         </div>
