@@ -149,7 +149,37 @@ export default function QuizPage() {
   if (state.status === 'loading') {
     return (
       <div className="page quiz-page">
-        <div className="card">Loading your quiz...</div>
+        <div className="quiz-layout">
+          <div className="quiz-main">
+            <div className="quiz-header">
+              <div className="skeleton skeleton-pill" />
+              <div className="skeleton skeleton-button" />
+            </div>
+            <div className="question-card skeleton-card">
+              <div className="skeleton skeleton-title" />
+              <div className="skeleton skeleton-line" />
+              <div className="skeleton skeleton-line short" />
+              <div className="skeleton skeleton-option" />
+              <div className="skeleton skeleton-option" />
+              <div className="skeleton skeleton-option" />
+              <div className="skeleton skeleton-option" />
+            </div>
+            <div className="nav-controls">
+              <div className="skeleton skeleton-button" />
+              <div className="skeleton skeleton-pill" />
+              <div className="skeleton skeleton-button" />
+            </div>
+          </div>
+          <div className="question-nav skeleton-panel">
+            <div className="skeleton skeleton-title" />
+            <div className="skeleton-grid">
+              {Array.from({ length: 15 }).map((_, index) => (
+                <div key={`skeleton-${index}`} className="skeleton skeleton-circle" />
+              ))}
+            </div>
+            <div className="skeleton skeleton-line" />
+          </div>
+        </div>
       </div>
     );
   }
