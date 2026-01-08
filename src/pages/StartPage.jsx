@@ -43,35 +43,59 @@ export default function StartPage() {
 
   return (
     <div className="page start-page">
-      <div className="card">
-        <h1>Simple Quiz Application</h1>
-        <p className="subtitle">Enter your email to begin the quiz.</p>
-        <form onSubmit={handleSubmit} className="form">
-          <label htmlFor="email">Email address</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="you@example.com"
-            required
-          />
-          {error && <p className="error-text">{error}</p>}
-          <button className="primary" type="submit">Start Quiz</button>
-        </form>
-        {hasSavedQuiz && (
-          <div className="resume-panel">
-            <p>We found a saved quiz for {state.email}.</p>
-            <div className="actions">
-              <button className="ghost" type="button" onClick={handleContinue}>
-                Continue Quiz
-              </button>
-              <button className="danger" type="button" onClick={handleStartOver}>
-                Start Over
-              </button>
+      <div className="start-layout">
+        <div className="start-hero">
+          <span className="eyebrow">Daily Knowledge Sprint</span>
+          <h1>Simple Quiz Application</h1>
+          <p className="subtitle">
+            Step into a 15-question challenge with a 30-minute countdown and a
+            detailed report at the end.
+          </p>
+          <div className="hero-stats">
+            <div>
+              <strong>15</strong>
+              <span>Questions</span>
+            </div>
+            <div>
+              <strong>30:00</strong>
+              <span>Timer</span>
+            </div>
+            <div>
+              <strong>Live</strong>
+              <span>Progress</span>
             </div>
           </div>
-        )}
+        </div>
+        <div className="card start-card">
+          <h2>Start your session</h2>
+          <p className="subtitle">Enter your email to begin the quiz.</p>
+          <form onSubmit={handleSubmit} className="form">
+            <label htmlFor="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="you@example.com"
+              required
+            />
+            {error && <p className="error-text">{error}</p>}
+            <button className="primary" type="submit">Start Quiz</button>
+          </form>
+          {hasSavedQuiz && (
+            <div className="resume-panel">
+              <p>We found a saved quiz for {state.email}.</p>
+              <div className="actions">
+                <button className="ghost" type="button" onClick={handleContinue}>
+                  Continue Quiz
+                </button>
+                <button className="danger" type="button" onClick={handleStartOver}>
+                  Start Over
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
