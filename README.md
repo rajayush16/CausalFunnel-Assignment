@@ -36,3 +36,7 @@ Open `http://localhost:5173` in your browser.
 
 - Avoiding double-submit on timer completion, handled via a submission guard.
 - Keeping timer persistence accurate with a per-second tick tied to state.
+
+## Additional 
+
+- Added a small progress/answered tracker and a smooth question transition to make the quiz flow feel more polished. 
