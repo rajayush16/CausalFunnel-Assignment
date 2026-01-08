@@ -104,6 +104,15 @@ export default function QuizPage() {
     [state.selectedAnswers]
   );
 
+  const attemptedCount = useMemo(
+    () => state.selectedAnswers.filter((answer) => answer !== null).length,
+    [state.selectedAnswers]
+  );
+
+  const progressPercent = state.questions.length
+    ? Math.round((attemptedCount / state.questions.length) * 100)
+    : 0;
+
   const currentQuestion = state.questions[state.currentIndex];
 
   const handleSelect = (value) => {
@@ -175,9 +184,20 @@ export default function QuizPage() {
         <div className="quiz-main">
           <div className="quiz-header">
             <Timer remainingTime={state.remainingTime} />
-            <button className="primary" type="button" onClick={() => setShowConfirm(true)}>
+            <div className="quiz-header-actions">
+              <div className="progress">
+                <div className="progress-info">
+                  <span>Answered</span>
+                  <strong>{attemptedCount}/{state.questions.length}</strong>
+                </div>
+                <div className="progress-bar">
+                  <span style={{ width: `${progressPercent}%` }} />
+                </div>
+              </div>
+              <button className="primary" type="button" onClick={() => setShowConfirm(true)}>
               Submit Quiz
             </button>
+            </div>
           </div>
           <div className="question-wrapper" key={currentQuestion.id}>
             <QuestionCard
