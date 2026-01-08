@@ -175,7 +175,7 @@ export default function QuizPage() {
         <div className="quiz-main">
           <div className="quiz-header">
             <Timer remainingTime={state.remainingTime} />
-            <button className="ghost" type="button" onClick={() => setShowConfirm(true)}>
+            <button className="primary" type="button" onClick={() => setShowConfirm(true)}>
               Submit Quiz
             </button>
           </div>
@@ -188,7 +188,7 @@ export default function QuizPage() {
             />
           </div>
           <div className="nav-controls">
-            <button className="ghost" type="button" onClick={handlePrevious} disabled={state.currentIndex === 0}>
+            <button className="primary" type="button" onClick={handlePrevious} disabled={state.currentIndex === 0}>
               Previous
             </button>
             <span>
